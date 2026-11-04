@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="ur" dir="ltr" class="dark">
+<html lang="en" dir="ltr" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>YaadMate AI - سمارٹ ریمائنڈر و صوتی اسسٹنٹ</title>
-  <meta name="description" content="موبائل فرسٹ سمارٹ ریمائنڈر اور AI صوتی اسسٹنٹ" />
+  <title>YaadMate AI - Smart Reminder & Voice Assistant</title>
+  <meta name="description" content="Mobile-first smart reminder and AI voice assistant" />
   <meta name="theme-color" content="#0d1527" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-  <!-- فونٹس برائے انگریزی اور نستعلیق اردو -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet">
@@ -30,7 +30,9 @@
       user-select: none;
       -webkit-tap-highlight-color: transparent;
       padding-top: env(safe-area-inset-top, 0px);
-      overflow-x: hidden
+      overflow-x: hidden !important;
+      width: 100%;
+      position: relative;
     }
     [dir="rtl"] {
       font-family: 'Noto Nastaliq Urdu', 'Plus Jakarta Sans', serif;
@@ -99,25 +101,20 @@
           <div class="flex items-center gap-1.5">
             <h1 class="font-bold text-lg text-white tracking-tight leading-none">YaadMate AI</h1>
             <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-              Glass Edition
+              Global Edition
             </span>
           </div>
           <p id="header-date" class="text-[11px] text-slate-400 mt-0.5 font-medium"></p>
         </div>
       </div>
 
-      <!-- Header Action Buttons -->
+      <!-- Header Action Buttons (Download button completely removed) -->
       <div class="flex items-center gap-1.5">
-        <button id="btn-top-download" onclick="downloadSelfFile()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white text-xs font-bold shadow-lg shadow-indigo-600/30 transition-all active:scale-95" title="Download this file">
-          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span>Download</span>
-        </button>
-
         <button id="btn-top-lang" class="px-2.5 py-1.5 rounded-xl glass-card text-xs font-semibold text-slate-200 transition-all active:scale-95">
           Roman
         </button>
 
-        <button id="btn-top-test" class="p-2 rounded-xl glass-card text-emerald-400 transition-all active:scale-95" title="الارم و آواز کا ٹیسٹ">
+        <button id="btn-top-test" class="p-2 rounded-xl glass-card text-emerald-400 transition-all active:scale-95" title="Alarm & Audio Test">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         </button>
       </div>
@@ -127,14 +124,14 @@
     <div class="flex items-center justify-between text-xs glass-card p-2.5 rounded-2xl">
       <div class="flex items-center gap-2">
         <div class="w-2 h-2 rounded-full bg-indigo-400 animate-ping"></div>
-        <span class="text-slate-200 font-medium">خوش آمدید، <span id="user-display-name" class="text-indigo-300 font-semibold">دوست</span></span>
+        <span class="text-slate-200 font-medium">Welcome, <span id="user-display-name" class="text-indigo-300 font-semibold">Friend</span></span>
       </div>
       <div class="flex items-center gap-2">
         <button id="btn-notif-req" onclick="requestBrowserNotificationPermission(true)" class="hidden px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-bold animate-pulse">
           Enable Alerts 🔔
         </button>
         <span id="badge-today-count" class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-indigo-500/20 text-indigo-300 font-semibold text-[11px] border border-indigo-500/20">
-          0 آج کے کام
+          0 Today
         </span>
       </div>
     </div>
@@ -151,14 +148,14 @@
         <div class="flex items-center justify-between">
           <span class="text-xs font-bold text-indigo-300 flex items-center gap-1.5">
             <svg class="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
-            بولیں یا لکھیں (AI وقت خود نکالے گا)
+            Smart Voice / Text Input
           </span>
-          <span class="text-[10px] text-slate-400">English / Roman / اردو</span>
+          <span class="text-[10px] text-slate-400">English / Roman / Urdu</span>
         </div>
 
         <div class="flex items-center gap-2">
           <input id="input-quick-reminder" type="text" 
-                 placeholder='مثلاً: "کل شام 7 بجے سودا لانا" یا "Doctor tomorrow 4pm"' 
+                 placeholder='e.g., "Doctor tomorrow at 4pm" or "Kal shaam meeting"' 
                  class="flex-1 glass-input rounded-2xl px-3.5 py-2.5 text-xs placeholder-slate-500 transition-colors" />
           
           <button id="btn-quick-voice" class="p-2.5 rounded-2xl glass-card text-slate-300 hover:text-white transition-all active:scale-95" title="Voice Mic">
@@ -174,7 +171,7 @@
         <div id="voice-indicator" class="hidden items-center justify-between p-2.5 rounded-2xl bg-rose-950/40 border border-rose-500/30 text-rose-200 text-xs">
           <div class="flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
-            <span class="font-semibold">بولیں، آواز سنی جا رہی ہے...</span>
+            <span class="font-semibold">Listening, speak now...</span>
             <div class="flex items-center gap-1 ml-2">
               <span class="w-1 bg-rose-400 rounded-full wave-bar-1"></span>
               <span class="w-1 bg-rose-400 rounded-full wave-bar-2"></span>
@@ -189,15 +186,15 @@
       <!-- Metrics Carousel -->
       <div class="grid grid-cols-3 gap-2 text-center text-xs">
         <button onclick="setFilter('today')" class="p-3 rounded-2xl glass-card hover:border-indigo-500/40 text-left transition-all active:scale-95">
-          <span class="text-[10px] text-slate-400 font-medium block">آج کے کام (Today)</span>
+          <span class="text-[10px] text-slate-400 font-medium block">Today</span>
           <span id="metric-today" class="text-base font-extrabold text-white mt-0.5 block">0</span>
         </button>
         <button onclick="setFilter('overdue')" class="p-3 rounded-2xl glass-card hover:border-rose-500/40 text-left transition-all active:scale-95">
-          <span class="text-[10px] text-rose-300 font-medium block">تاخیر شدہ (Overdue)</span>
+          <span class="text-[10px] text-rose-300 font-medium block">Overdue</span>
           <span id="metric-overdue" class="text-base font-extrabold text-rose-400 mt-0.5 block">0</span>
         </button>
         <button onclick="setFilter('all')" class="p-3 rounded-2xl glass-card hover:border-indigo-500/40 text-left transition-all active:scale-95">
-          <span class="text-[10px] text-indigo-300 font-medium block">کل فعال (Total)</span>
+          <span class="text-[10px] text-indigo-300 font-medium block">Total Active</span>
           <span id="metric-total" class="text-base font-extrabold text-indigo-300 mt-0.5 block">0</span>
         </button>
       </div>
@@ -207,17 +204,17 @@
         <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </span>
-        <input id="input-search" type="text" oninput="handleSearch(this.value)" placeholder="ریمائنڈرز میں تلاش کریں (Search tasks)..." 
+        <input id="input-search" type="text" oninput="handleSearch(this.value)" placeholder="Search reminders..." 
                class="w-full glass-input rounded-2xl pl-10 pr-4 py-2.5 text-xs placeholder-slate-500 transition-colors" />
       </div>
 
       <!-- Category Filter Chips -->
       <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs">
-        <button onclick="setFilter('all')" id="filter-chip-all" class="px-3.5 py-1.5 rounded-xl font-semibold border bg-indigo-600 text-white border-indigo-500 shadow-sm shrink-0">سب (All)</button>
-        <button onclick="setFilter('Work')" id="filter-chip-Work" class="px-3.5 py-1.5 rounded-xl font-medium glass-card text-slate-300 hover:text-white shrink-0">کام / دفتر</button>
-        <button onclick="setFilter('Health')" id="filter-chip-Health" class="px-3.5 py-1.5 rounded-xl font-medium glass-card text-slate-300 hover:text-white shrink-0">صحت و دوا</button>
-        <button onclick="setFilter('Shopping')" id="filter-chip-Shopping" class="px-3.5 py-1.5 rounded-xl font-medium glass-card text-slate-300 hover:text-white shrink-0">خریداری</button>
-        <button onclick="setFilter('Finance')" id="filter-chip-Finance" class="px-3.5 py-1.5 rounded-xl font-medium glass-card text-slate-300 hover:text-white shrink-0">بلز / پیسے</button>
+        <button onclick="setFilter('all')" id="filter-chip-all" class="px-3.5 py-1.5 rounded-xl font-semibold border bg-indigo-600 text-white border-indigo-500 shadow-sm shrink-0">All</button>
+        <button onclick="setFilter('Work')" id="filter-chip-Work" class="px-3.5 py-1.5 rounded-xl font-medium glass-card text-slate-300 hover:text-white shrink-0">Work</button>
+        <button onclick="setFilter('Health')" id="filter-chip-Health" class="px-3.5 py-1.5 rounded-xl font-medium glass-card text-slate-300 hover:text-white shrink-0">Health</button>
+        <button onclick="setFilter('Shopping')" id="filter-chip-Shopping" class="px-3.5 py-1.5 rounded-xl font-medium glass-card text-slate-300 hover:text-white shrink-0">Shopping</button>
+        <button onclick="setFilter('Finance')" id="filter-chip-Finance" class="px-3.5 py-1.5 rounded-xl font-medium glass-card text-slate-300 hover:text-white shrink-0">Finance</button>
       </div>
 
       <!-- Reminders List -->
@@ -238,7 +235,7 @@
               YaadMate AI Assistant
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
             </h2>
-            <p class="text-[10px] text-slate-400">انگریزی، رومن اردو یا اردو میں گفتگو یا ریمائنڈر شیڈولنگ</p>
+            <p class="text-[10px] text-slate-400">Chat or schedule reminders in English, Roman, or Urdu</p>
           </div>
         </div>
         <button onclick="clearChat()" class="text-slate-400 hover:text-rose-400 text-xs px-2 py-1">Clear</button>
@@ -251,10 +248,10 @@
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
           </div>
           <div class="p-3 rounded-2xl glass-card text-slate-200 text-xs leading-relaxed max-w-[85%]">
-            السلام علیکم! میں آپ کا YaadMate AI اسسٹنٹ ہوں۔
-            <br>آپ مجھ سے گفتگو کر سکتے ہیں یا ریمائنڈر شیڈول کروا سکتے ہیں:
+            Hello! I am your YaadMate AI Assistant.
+            <br>You can chat with me or schedule reminders instantly:
             <br>• <em>"Kal subah 9:30 doctor appointment"</em>
-            <br>• <em>"Rozana shaam 7 baje walk ka reminder lagao"</em>
+            <br>• <em>"Remind me to buy groceries at 6 PM"</em>
             <br>• <em>"Show all my pending tasks"</em>
           </div>
         </div>
@@ -262,7 +259,7 @@
 
       <!-- Chat Form Input -->
       <form onsubmit="handleChatSubmit(event)" class="flex items-center gap-2 pt-1">
-        <input id="chat-input" type="text" placeholder='یہاں لکھیں: "Kal shaam 7 baje meeting yaad karwana"...'
+        <input id="chat-input" type="text" placeholder='Type here: "Meeting tomorrow at 5pm"...'
                class="flex-1 glass-input rounded-2xl px-3.5 py-2.5 text-xs placeholder-slate-500" />
         <button type="submit" class="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-xs shadow-md active:scale-95">
           Send
@@ -276,11 +273,11 @@
         <div class="flex items-center justify-between">
           <h2 class="text-sm font-bold text-white flex items-center gap-1.5">
             <svg class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            مکمل شدہ کام (Completed Tasks)
+            Completed History
           </h2>
           <span id="history-count" class="text-xs px-2.5 py-0.5 rounded-lg bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">0</span>
         </div>
-        <p class="text-[11px] text-slate-400 mt-1">جو ریمائنڈر آپ مکمل کر چکے ہیں ان کا ریکارڈ یہاں محفوظ رہتا ہے اور آپ انہیں دوبارہ ایکٹو بھی کر سکتے ہیں۔</p>
+        <p class="text-[11px] text-slate-400 mt-1">Review your finished tasks or restore them anytime.</p>
       </div>
 
       <div id="history-container" class="space-y-2.5">
@@ -297,25 +294,24 @@
           </div>
           <div>
             <h2 class="text-sm font-bold text-white">WhatsApp Dispatch Hub</h2>
-            <p class="text-[11px] text-slate-300">ریمائنڈر واٹس ایپ پر باقاعدہ فارمیٹ کے ساتھ شیئر کریں</p>
+            <p class="text-[11px] text-slate-300">Share your reminders cleanly via WhatsApp</p>
           </div>
         </div>
       </div>
 
       <div class="p-3.5 rounded-2xl glass-card text-amber-200 text-[11px] leading-relaxed border-amber-500/20">
-        <strong>وضاحت برائے واٹس ایپ:</strong> یہ فیچر واٹس ایپ ایپلیکیشن کھول کر پورا میسج خودکار ٹائپ کر دیتا ہے تاکہ آپ خود "Send" کر سکیں۔ براؤزر یا عام ایپ میں صارف کی مرضی کے بغیر پس منظر میں خاموشی سے میسج بھیجنے کا کوئی غیر محفوظ طریقہ موجود نہیں ہے۔
+        <strong>Note:</strong> Web apps open WhatsApp with pre-filled text so you can send it instantly to any chat.
       </div>
 
       <div class="p-4 rounded-3xl glass-card space-y-3 text-xs">
-        <label class="block font-medium text-slate-300">ریمائنڈر منتخب کریں:</label>
+        <label class="block font-medium text-slate-300">Select Reminder:</label>
         <select id="wa-select-reminder" class="w-full glass-input rounded-2xl px-3.5 py-2.5">
           <!-- Injected via JavaScript -->
         </select>
 
-        <label class="block font-medium text-slate-300">فون نمبر (ملک کا کوڈ شامل کریں جیسے 92):</label>
-        <input id="wa-phone-number" type="tel" placeholder="مثلاً: 923001234567 یا خالی چھوڑیں" 
+        <label class="block font-medium text-slate-300">Phone Number (Optional, e.g. 92300...):</label>
+        <input id="wa-phone-number" type="tel" placeholder="e.g. 923001234567 or leave blank" 
                class="w-full glass-input rounded-2xl px-3.5 py-2.5 placeholder-slate-500" />
-        <span class="text-[10px] text-slate-400 block">خالی چھوڑنے پر واٹس ایپ کھلے گی جہاں آپ اپنی چیٹس میں سے رابطہ منتخب کر سکتے ہیں۔</span>
 
         <button onclick="dispatchToWhatsApp()" class="w-full py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2 active:scale-95 transition-all">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
@@ -329,41 +325,32 @@
       <div class="p-4 rounded-3xl glass-card space-y-3">
         <h3 class="font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
           <svg class="w-4 h-4 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-          <span>App File Download & PWA Install</span>
+          <span>PWA Installation Guide</span>
         </h3>
-        <p class="text-[11px] text-slate-400 leading-relaxed">
-          اس ایپ کو اپنے فون میں محفوظ کر کے بغیر انٹرنیٹ چلانے کے لیے بٹن دبائیں:
-        </p>
-        <div class="space-y-2">
-          <button onclick="downloadSelfFile()" class="w-full py-2.5 px-4 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold text-xs flex items-center justify-center gap-2 active:scale-95 shadow-md">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            <span>Download YaadMate HTML File</span>
-          </button>
-          <div class="p-3.5 rounded-2xl glass-card text-[11px] text-slate-300 leading-relaxed space-y-1">
-            <strong>اینڈرائیڈ میں بطور ایپ انسٹال کرنے کا طریقہ:</strong>
-            <br>1. اس فائل کو فون میں گوگل کروم (Chrome) میں کھولیں۔
-            <br>2. اوپر دائیں کونے کے تین نقطوں (⋮) پر کلک کریں۔
-            <br>3. <strong>"Add to Home screen"</strong> یا <strong>"Install app"</strong> پر ٹیپ کریں۔ یہ بغیر براؤزر بار کے اصلی موبائل ایپ کی طرح چلے گی۔
-          </div>
+        <div class="p-3.5 rounded-2xl glass-card text-[11px] text-slate-300 leading-relaxed space-y-1">
+          <strong>How to install on Mobile:</strong>
+          <br>1. Open this page in Google Chrome or Safari.
+          <br>2. Tap the browser menu (3 dots top-right).
+          <br>3. Select <strong>"Add to Home screen"</strong> or <strong>"Install app"</strong>. It will run like a native app.
         </div>
       </div>
 
       <div class="p-4 rounded-3xl glass-card space-y-2.5">
-        <h4 class="font-bold uppercase tracking-wider text-slate-300">آپ کا نام (Personalization)</h4>
+        <h4 class="font-bold uppercase tracking-wider text-slate-300">Personalization</h4>
         <div class="flex items-center gap-2">
-          <input id="input-username" type="text" placeholder="اپنا نام لکھیں..." 
+          <input id="input-username" type="text" placeholder="Enter your name..." 
                  class="flex-1 glass-input rounded-2xl px-3.5 py-2.5" />
           <button onclick="saveUserName()" class="px-4 py-2.5 rounded-2xl bg-indigo-600 text-white font-semibold active:scale-95">Save</button>
         </div>
       </div>
 
       <div class="p-4 rounded-3xl glass-card space-y-3">
-        <h4 class="font-bold uppercase tracking-wider text-slate-300">الارم و آواز کی سیٹنگز</h4>
+        <h4 class="font-bold uppercase tracking-wider text-slate-300">Alarm & Voice Settings</h4>
         
         <div class="flex items-center justify-between py-1">
           <div>
-            <div class="font-semibold text-white">الارم رنگ ٹون (Alarm Tone)</div>
-            <div class="text-[11px] text-slate-400">ریمائنڈر کے وقت بلند صوتی الارم بجانا</div>
+            <div class="font-semibold text-white">Alarm Tone</div>
+            <div class="text-[11px] text-slate-400">Play audio chime when due</div>
           </div>
           <button id="toggle-sound-btn" onclick="toggleSetting('sound')" class="w-12 h-6 rounded-full bg-indigo-600 relative transition-colors">
             <span id="sound-dot" class="absolute top-1 right-1 w-4 h-4 rounded-full bg-white transition-transform"></span>
@@ -372,8 +359,8 @@
 
         <div class="flex items-center justify-between py-1 border-t border-white/5 pt-2">
           <div>
-            <div class="font-semibold text-white">اردو و انگلش صوتی اناؤنسمنٹ (Speech Voice)</div>
-            <div class="text-[11px] text-slate-400">وقت ہونے پر کام کا نام خودکار بول کر بتانا</div>
+            <div class="font-semibold text-white">Speech Announcement</div>
+            <div class="text-[11px] text-slate-400">Speak task title out loud</div>
           </div>
           <button id="toggle-speech-btn" onclick="toggleSetting('speech')" class="w-12 h-6 rounded-full bg-indigo-600 relative transition-colors">
             <span id="speech-dot" class="absolute top-1 right-1 w-4 h-4 rounded-full bg-white transition-transform"></span>
@@ -386,9 +373,9 @@
         </button>
       </div>
 
-      <!-- Backup and Restore with Secure JSON Validation -->
+      <!-- Backup and Restore -->
       <div class="p-4 rounded-3xl glass-card space-y-2.5">
-        <h4 class="font-bold uppercase tracking-wider text-slate-300">بیک اپ و ڈیٹا (Backup & Restore)</h4>
+        <h4 class="font-bold uppercase tracking-wider text-slate-300">Backup & Data</h4>
         <div class="grid grid-cols-2 gap-2">
           <button onclick="exportData()" class="py-2.5 rounded-2xl glass-card text-slate-200 font-semibold active:scale-95 flex items-center justify-center gap-1.5">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -406,19 +393,19 @@
     </div>
   </main>
 
-  <!-- ================= BOTTOM NAVIGATION DOCK (STANDARD VECTOR SVG ICONS) ================= -->
+  <!-- ================= BOTTOM NAVIGATION DOCK ================= -->
   <nav class="fixed bottom-0 left-0 right-0 z-40 glass-card border-t border-white/[0.08] px-2 pt-2 pb-[max(env(safe-area-inset-bottom),0.85rem)] max-w-lg mx-auto">
     <div class="flex items-center justify-around relative">
       <!-- 1. Home Tab -->
       <button onclick="switchTab('home')" id="tab-btn-home" class="flex flex-col items-center justify-center flex-1 py-1 rounded-xl text-indigo-400 font-semibold transition-all">
         <svg class="w-5 h-5 stroke-[2] transition-transform active:scale-90" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <span class="text-[10px] mt-1 tracking-tight">ہوم</span>
+        <span class="text-[10px] mt-1 tracking-tight">Home</span>
       </button>
 
       <!-- 2. AI Assistant Tab -->
       <button onclick="switchTab('chat')" id="tab-btn-chat" class="flex flex-col items-center justify-center flex-1 py-1 rounded-xl text-slate-400 hover:text-slate-200 transition-all">
         <svg class="w-5 h-5 stroke-[2] transition-transform active:scale-90" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg>
-        <span class="text-[10px] mt-1 tracking-tight">AI اسسٹنٹ</span>
+        <span class="text-[10px] mt-1 tracking-tight">AI Assistant</span>
       </button>
 
       <!-- 3. Center Plus Action Button -->
@@ -431,19 +418,19 @@
       <!-- 4. History Tab -->
       <button onclick="switchTab('history')" id="tab-btn-history" class="flex flex-col items-center justify-center flex-1 py-1 rounded-xl text-slate-400 hover:text-slate-200 transition-all">
         <svg class="w-5 h-5 stroke-[2] transition-transform active:scale-90" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        <span class="text-[10px] mt-1 tracking-tight">ہسٹری</span>
+        <span class="text-[10px] mt-1 tracking-tight">History</span>
       </button>
 
       <!-- 5. WhatsApp Tab -->
       <button onclick="switchTab('whatsapp')" id="tab-btn-whatsapp" class="flex flex-col items-center justify-center flex-1 py-1 rounded-xl text-slate-400 hover:text-slate-200 transition-all">
         <svg class="w-5 h-5 stroke-[2] transition-transform active:scale-90" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-        <span class="text-[10px] mt-1 tracking-tight">واٹس ایپ</span>
+        <span class="text-[10px] mt-1 tracking-tight">WhatsApp</span>
       </button>
 
       <!-- 6. Settings Tab -->
       <button onclick="switchTab('settings')" id="tab-btn-settings" class="flex flex-col items-center justify-center flex-1 py-1 rounded-xl text-slate-400 hover:text-slate-200 transition-all">
         <svg class="w-5 h-5 stroke-[2] transition-transform active:scale-90" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        <span class="text-[10px] mt-1 tracking-tight">سیٹنگز</span>
+        <span class="text-[10px] mt-1 tracking-tight">Settings</span>
       </button>
     </div>
   </nav>
@@ -452,7 +439,7 @@
   <div id="modal-reminder" class="fixed inset-0 z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/75 backdrop-blur-md">
     <div class="w-full max-w-lg glass-modal sm:rounded-3xl rounded-t-3xl p-5 shadow-2xl space-y-4">
       <div class="flex items-center justify-between pb-2 border-b border-white/10">
-        <h3 id="modal-reminder-title" class="font-bold text-sm text-white">نیا ریمائنڈر بنائیں (New Reminder)</h3>
+        <h3 id="modal-reminder-title" class="font-bold text-sm text-white">New Reminder</h3>
         <button onclick="closeAddModal()" class="p-1 rounded-full text-slate-400 hover:text-white">✕</button>
       </div>
 
@@ -460,60 +447,60 @@
         <input type="hidden" id="form-reminder-id" value="" />
 
         <div>
-          <label class="block font-semibold text-slate-300 mb-1">کام کا عنوان (Title) *</label>
-          <input id="form-title" type="text" required placeholder="مثلاً: ڈاکٹر اپائنٹمنٹ، آفس میٹنگ، بل ادائیگی..."
+          <label class="block font-semibold text-slate-300 mb-1">Title *</label>
+          <input id="form-title" type="text" required placeholder="e.g., Doctor appointment, Office meeting..."
                  class="w-full glass-input rounded-2xl px-3.5 py-2.5 text-white" />
         </div>
 
         <div class="grid grid-cols-2 gap-2">
           <div>
-            <label class="block font-semibold text-slate-300 mb-1">تاریخ (Date) *</label>
+            <label class="block font-semibold text-slate-300 mb-1">Date *</label>
             <input id="form-date" type="date" required class="w-full glass-input rounded-2xl px-3 py-2 text-white" />
           </div>
           <div>
-            <label class="block font-semibold text-slate-300 mb-1">وقت (Time) *</label>
+            <label class="block font-semibold text-slate-300 mb-1">Time *</label>
             <input id="form-time" type="time" required class="w-full glass-input rounded-2xl px-3 py-2 text-white" />
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-2">
           <div>
-            <label class="block font-semibold text-slate-300 mb-1">زمرہ (Category)</label>
+            <label class="block font-semibold text-slate-300 mb-1">Category</label>
             <select id="form-category" class="w-full glass-input rounded-2xl px-3 py-2 text-white">
-              <option value="Personal">ذاتی (Personal)</option>
-              <option value="Work">کام / دفتر (Work)</option>
-              <option value="Health">صحت و دوا (Health)</option>
-              <option value="Shopping">خریداری (Shopping)</option>
-              <option value="Finance">مالیات / بلز (Finance)</option>
+              <option value="Personal">Personal</option>
+              <option value="Work">Work</option>
+              <option value="Health">Health</option>
+              <option value="Shopping">Shopping</option>
+              <option value="Finance">Finance</option>
             </select>
           </div>
           <div>
-            <label class="block font-semibold text-slate-300 mb-1">ترجیح (Priority)</label>
+            <label class="block font-semibold text-slate-300 mb-1">Priority</label>
             <select id="form-priority" class="w-full glass-input rounded-2xl px-3 py-2 text-white">
-              <option value="urgent">فوری / شدید (Urgent)</option>
-              <option value="high" selected>اہم (High)</option>
-              <option value="medium">درمیانہ (Medium)</option>
-              <option value="low">عام (Low)</option>
+              <option value="urgent">Urgent</option>
+              <option value="high" selected>High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
             </select>
           </div>
         </div>
 
         <div>
-          <label class="block font-semibold text-slate-300 mb-1">دہرائیں (Repeat / Recurrence)</label>
+          <label class="block font-semibold text-slate-300 mb-1">Recurrence</label>
           <select id="form-recurrence" class="w-full glass-input rounded-2xl px-3 py-2 text-white">
-            <option value="none">ایک بار (Once)</option>
-            <option value="daily">روزانہ (Daily)</option>
-            <option value="weekly">ہفتہ وار (Weekly)</option>
-            <option value="weekdays">ہفتے کے دن (Mon-Fri)</option>
-            <option value="monthly">ماہانہ (Monthly)</option>
-            <option value="yearly">سالانہ (Yearly)</option>
+            <option value="none">Once</option>
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="weekdays">Mon-Fri</option>
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
           </select>
         </div>
 
         <div class="flex items-center justify-end gap-2 pt-2 border-t border-white/10">
           <button type="button" onclick="closeAddModal()" class="px-4 py-2 rounded-xl text-slate-400 hover:text-white">Cancel</button>
           <button type="submit" class="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold shadow-lg shadow-indigo-600/30 active:scale-95 transition-all">
-            محفوظ کریں (Save)
+            Save
           </button>
         </div>
       </form>
@@ -528,7 +515,7 @@
       </div>
       
       <span class="inline-block px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 text-xs font-bold animate-pulse">
-        الارم کا وقت ہو گیا ہے (ALARM DUE NOW)
+        ALARM DUE NOW
       </span>
 
       <div>
@@ -536,7 +523,7 @@
         <p id="alarm-item-time" class="text-xs text-indigo-300 font-semibold mt-1"></p>
       </div>
 
-      <!-- Quick 5, 10, 15, 30m Snooze Buttons -->
+      <!-- Snooze Buttons -->
       <div class="pt-1">
         <span class="block text-[10px] uppercase font-bold text-slate-400 mb-1.5 tracking-wider">
           Quick Snooze
@@ -549,16 +536,16 @@
         </div>
       </div>
 
-      <!-- Stop Loud Alarm Button -->
+      <!-- Stop Alarm Button -->
       <button onclick="stopAlarmRinging()" class="w-full py-3 rounded-2xl bg-gradient-to-r from-rose-600 to-red-600 text-white font-bold text-sm shadow-xl active:scale-95 transition-all flex items-center justify-center gap-2">
         <svg class="w-4 h-4 fill-white stroke-none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
-        <span>Stop Alarm (الارم بند کریں)</span>
+        <span>Stop Alarm</span>
       </button>
 
       <div class="pt-1">
         <button onclick="completeActiveAlarm()" class="w-full py-2.5 rounded-2xl bg-emerald-600 text-white font-bold text-xs shadow-lg active:scale-95 transition-all flex items-center justify-center gap-1.5">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          <span>Mark Done (مکمل کریں)</span>
+          <span>Mark Done</span>
         </button>
       </div>
     </div>
@@ -566,7 +553,6 @@
 
   <!-- ================= JAVASCRIPT APPLICATION LOGIC ================= -->
   <script>
-    // 1. Audio Engine & Synthesizer Alarm
     let audioCtx = null;
     let alarmInterval = null;
     let activeDueReminder = null;
@@ -638,45 +624,20 @@
       }
     }
 
-    function speakAnnouncement(urduText, romanFallbackText) {
+    function speakAnnouncement(textToSpeak) {
       if (!userPrefs.speechEnabled || !userPrefs.soundEnabled) return;
       if (!('speechSynthesis' in window)) return;
-
       try {
         window.speechSynthesis.cancel();
-        const voices = window.speechSynthesis.getVoices();
-        const hasUrduVoice = voices.some(v => v.lang.toLowerCase().startsWith('ur') || v.name.toLowerCase().includes('urdu'));
-
-        let textToSpeak = urduText;
-        let targetLang = 'ur-PK';
-
-        if (!hasUrduVoice) {
-          textToSpeak = romanFallbackText || urduText;
-          targetLang = 'en-US';
-        }
-
         const utterance = new SpeechSynthesisUtterance(textToSpeak);
         utterance.rate = 0.95;
-        utterance.lang = targetLang;
-        
-        if (!hasUrduVoice) {
-          const enVoice = voices.find(v => v.lang.startsWith('en'));
-          if (enVoice) utterance.voice = enVoice;
-        }
-
+        utterance.lang = 'en-US';
         window.speechSynthesis.speak(utterance);
       } catch (e) {}
     }
 
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.onvoiceschanged = () => {
-        window.speechSynthesis.getVoices();
-      };
-    }
-
-    // 2. Storage & Default Reminders
-    const STORAGE_KEY = 'yaadmate_allinone_reminders_v8';
-    const PREFS_KEY = 'yaadmate_allinone_prefs_v8';
+    const STORAGE_KEY = 'yaadmate_allinone_reminders_v9';
+    const PREFS_KEY = 'yaadmate_allinone_prefs_v9';
 
     function getLocalToday() {
       const now = new Date();
@@ -693,10 +654,10 @@
       } catch (e) {}
       const today = getLocalToday();
       return [
-        { id: '1', title: 'صبح کی میٹنگ اور پراجیکٹ جائزہ', date: today, time: '10:00', category: 'Work', priority: 'high', completed: false, recurrence: 'weekdays', postponeCount: 0 },
-        { id: '2', title: 'پانی پینا اور جسمانی اسٹریچ (Hydration)', date: today, time: '14:30', category: 'Health', priority: 'medium', completed: false, recurrence: 'daily', postponeCount: 0 },
-        { id: '3', title: 'بجلی اور انٹرنیٹ کا بل ادا کرنا', date: today, time: '18:00', category: 'Finance', priority: 'urgent', completed: false, recurrence: 'monthly', postponeCount: 0 },
-        { id: '4', title: 'گھر کے لیے تازہ سودا اور دودھ لانا', date: today, time: '20:00', category: 'Shopping', priority: 'high', completed: false, recurrence: 'none', postponeCount: 0 }
+        { id: '1', title: 'Morning Team Meeting & Project Review', date: today, time: '10:00', category: 'Work', priority: 'high', completed: false, recurrence: 'weekdays', postponeCount: 0 },
+        { id: '2', title: 'Hydration & Stretch Break', date: today, time: '14:30', category: 'Health', priority: 'medium', completed: false, recurrence: 'daily', postponeCount: 0 },
+        { id: '3', title: 'Utility Bill Payment', date: today, time: '18:00', category: 'Finance', priority: 'urgent', completed: false, recurrence: 'monthly', postponeCount: 0 },
+        { id: '4', title: 'Grocery Shopping', date: today, time: '20:00', category: 'Shopping', priority: 'high', completed: false, recurrence: 'none', postponeCount: 0 }
       ];
     }
 
@@ -705,13 +666,13 @@
         const raw = localStorage.getItem(PREFS_KEY);
         if (raw) return JSON.parse(raw);
       } catch (e) {}
-      return { soundEnabled: true, speechEnabled: true, userName: 'دوست' };
+      return { soundEnabled: true, speechEnabled: true, userName: 'Friend' };
     }
 
     let reminders = loadSavedReminders();
     let userPrefs = loadSavedPrefs();
     let currentFilter = 'all';
-    let currentLang = 'ur-roman';
+    let currentLang = 'en';
     let currentSearch = '';
 
     function saveAll() {
@@ -719,7 +680,6 @@
       localStorage.setItem(PREFS_KEY, JSON.stringify(userPrefs));
     }
 
-    // 3. Recurrence Auto-Reschedule Logic
     function getNextOccurrenceDate(currentDateStr, recurrence) {
       if (!recurrence || recurrence === 'none') return null;
       const [y, m, d] = currentDateStr.split('-').map(Number);
@@ -730,14 +690,10 @@
       } else if (recurrence === 'weekly') {
         date.setDate(date.getDate() + 7);
       } else if (recurrence === 'weekdays') {
-        const day = date.getDay(); // 0: Sun, 5: Fri, 6: Sat
-        if (day === 5) {
-          date.setDate(date.getDate() + 3);
-        } else if (day === 6) {
-          date.setDate(date.getDate() + 2);
-        } else {
-          date.setDate(date.getDate() + 1);
-        }
+        const day = date.getDay();
+        if (day === 5) date.setDate(date.getDate() + 3);
+        else if (day === 6) date.setDate(date.getDate() + 2);
+        else date.setDate(date.getDate() + 1);
       } else if (recurrence === 'monthly') {
         date.setMonth(date.getMonth() + 1);
       } else if (recurrence === 'yearly') {
@@ -750,66 +706,40 @@
       return `${ny}-${nm}-${nd}`;
     }
 
-    // 4. Natural Language Parser
     function parseNL(text) {
       const now = new Date();
       let target = new Date(now);
       let lower = text.toLowerCase().trim();
 
-      lower = lower.replace(/[۰]/g,'0').replace(/[۱]/g,'1').replace(/[۲]/g,'2').replace(/[۳]/g,'3')
-                   .replace(/[۴]/g,'4').replace(/[۵]/g,'5').replace(/[۶]/g,'6').replace(/[۷]/g,'7')
-                   .replace(/[۸]/g,'8').replace(/[۹]/g,'9');
-
-      if (lower.includes('tomorrow') || lower.includes('kal') || lower.includes('کل')) {
+      if (lower.includes('tomorrow') || lower.includes('kal')) {
         target.setDate(target.getDate() + 1);
-      } else if (lower.includes('parson') || lower.includes('پرسوں')) {
+      } else if (lower.includes('parson')) {
         target.setDate(target.getDate() + 2);
       }
 
       let timeStr = '09:00';
       const match12 = lower.match(/(\b\d{1,2})(?::(\d{2}))?\s*(am|pm)\b/i);
-      const urduMatch = lower.match(/(\b\d{1,2})(?::(\d{2}))?\s*(?:baje|بجے)\b/i);
-
       if (match12) {
         let h = parseInt(match12[1], 10);
         let m = match12[2] ? match12[2].padStart(2, '0') : '00';
         if (match12[3].toLowerCase() === 'pm' && h < 12) h += 12;
         if (match12[3].toLowerCase() === 'am' && h === 12) h = 0;
         timeStr = `${String(h).padStart(2, '0')}:${m}`;
-      } else if (urduMatch) {
-        let h = parseInt(urduMatch[1], 10);
-        let m = urduMatch[2] ? urduMatch[2].padStart(2, '0') : '00';
-        if ((lower.includes('shaam') || lower.includes('raat') || lower.includes('شام') || lower.includes('رات')) && h < 12) {
-          h += 12;
-        }
-        timeStr = `${String(h).padStart(2, '0')}:${m}`;
-      } else if (lower.includes('fajr') || lower.includes('فجر') || lower.includes('sehri') || lower.includes('سحری')) {
-        timeStr = '05:00';
-      } else if (lower.includes('zohr') || lower.includes('zuhr') || lower.includes('ظہر')) {
-        timeStr = '13:30';
-      } else if (lower.includes('asr') || lower.includes('عصر')) {
-        timeStr = '16:45';
-      } else if (lower.includes('maghrib') || lower.includes('مغرب') || lower.includes('iftar') || lower.includes('افطار')) {
-        timeStr = '18:15';
-      } else if (lower.includes('isha') || lower.includes('عشاء')) {
-        timeStr = '20:15';
-      } else if (lower.includes('morning') || lower.includes('subah') || lower.includes('صبح')) {
-        timeStr = '08:00';
-      } else if (lower.includes('evening') || lower.includes('shaam') || lower.includes('شام')) {
+      } else if (lower.includes('evening') || lower.includes('shaam')) {
         timeStr = '18:00';
-      } else if (lower.includes('night') || lower.includes('raat') || lower.includes('رات')) {
+      } else if (lower.includes('night') || lower.includes('raat')) {
         timeStr = '21:00';
       }
 
       let category = 'Personal';
-      if (lower.includes('meeting') || lower.includes('office') || lower.includes('kaam') || lower.includes('دفتر') || lower.includes('میٹنگ')) category = 'Work';
-      else if (lower.includes('medicine') || lower.includes('doctor') || lower.includes('dawa') || lower.includes('دوا')) category = 'Health';
-      else if (lower.includes('shopping') || lower.includes('buy') || lower.includes('kharid') || lower.includes('سودا')) category = 'Shopping';
-      else if (lower.includes('bill') || lower.includes('bank') || lower.includes('fee') || lower.includes('بل')) category = 'Finance';
+      if (lower.includes('meeting') || lower.includes('office') || lower.includes('kaam')) category = 'Work';
+      else if (lower.includes('medicine') || lower.includes('doctor') || lower.includes('dawa')) category = 'Health';
+      else if (lower.includes('shopping') || lower.includes('buy') || lower.includes('kharid')) category = 'Shopping';
+      else if (lower.includes('bill') || lower.includes('bank') || lower.includes('fee')) category = 'Finance';
 
-      let clean = text.replace(/^(remind me to|remind me|yaad dilao|yaad karwana|مجھے یاد دلائیں)\s*/i, '')
-                      .replace(/\b(tomorrow|today|kal|subah|shaam|raat|کل|صبح|شام|رات)\b/gi, '')
-                      .replace(/\b\d{1,2}(:\d{2})?\s*(am|pm|baje|بجے)?\b/gi, '')
+      let clean = text.replace(/^(remind me to|remind me|yaad dilao)\s*/i, '')
+                      .replace(/\b(tomorrow|today|kal|subah|shaam|raat)\b/gi, '')
+                      .replace(/\b\d{1,2}(:\d{2})?\s*(am|pm|baje)?\b/gi, '')
                       .trim();
       if (!clean) clean = text;
 
@@ -829,16 +759,14 @@
       };
     }
 
-    // 5. WhatsApp Auto-Encoding & Formatting
     function buildWhatsAppText(item) {
       return `*🔔 YaadMate AI Reminder*%0A%0A📌 *Task:* ${encodeURIComponent(item.title)}%0A📅 *Date:* ${encodeURIComponent(item.date)}%0A⏰ *Time:* ${encodeURIComponent(item.time)}%0A🏷️ *Category:* ${encodeURIComponent(item.category)}%0A⚡ *Priority:* ${encodeURIComponent((item.priority || 'high').toUpperCase())}%0A%0A_Sent via YaadMate AI_`;
     }
 
-    // 6. Browser Notification Permission
     function requestBrowserNotificationPermission(interactive = false) {
       if ('Notification' in window) {
         if (Notification.permission === 'granted') {
-          if (interactive) alert('✅ Notifications پہلے سے فعال ہیں!');
+          if (interactive) alert('Notifications already enabled!');
           document.getElementById('btn-notif-req').classList.add('hidden');
         } else if (Notification.permission !== 'denied') {
           Notification.requestPermission().then(permission => {
@@ -851,15 +779,14 @@
       }
     }
 
-    // 7. Render App UI
     function renderApp() {
       const now = new Date();
       const todayStr = getLocalToday();
 
-      document.getElementById('header-date').textContent = now.toLocaleDateString(currentLang === 'ur' ? 'ur-PK' : 'en-US', {
+      document.getElementById('header-date').textContent = now.toLocaleDateString('en-US', {
         weekday: 'long', month: 'short', day: 'numeric'
       });
-      document.getElementById('user-display-name').textContent = userPrefs.userName || 'دوست';
+      document.getElementById('user-display-name').textContent = userPrefs.userName || 'Friend';
 
       if ('Notification' in window && Notification.permission === 'default') {
         document.getElementById('btn-notif-req').classList.remove('hidden');
@@ -873,7 +800,7 @@
       const todayItems = active.filter(r => r.date === todayStr);
       const overdueItems = active.filter(r => new Date(`${r.date}T${r.time}:00`).getTime() < now.getTime());
 
-      document.getElementById('badge-today-count').textContent = `${todayItems.length} آج کے کام`;
+      document.getElementById('badge-today-count').textContent = `${todayItems.length} Today`;
       document.getElementById('metric-today').textContent = todayItems.length;
       document.getElementById('metric-overdue').textContent = overdueItems.length;
       document.getElementById('metric-total').textContent = active.length;
@@ -896,8 +823,8 @@
         container.innerHTML = `
           <div class="text-center py-10 px-4 rounded-3xl glass-card">
             <div class="text-3xl mb-2">🎉</div>
-            <h4 class="text-sm font-semibold text-white">کوئی ریمائنڈر باقی نہیں ہے!</h4>
-            <p class="text-xs text-slate-400 mt-1">نیا ریمائنڈر شامل کرنے کے لیے اوپر لکھیں یا بولیں۔</p>
+            <h4 class="text-sm font-semibold text-white">No active reminders!</h4>
+            <p class="text-xs text-slate-400 mt-1">Add a new reminder using the input above.</p>
           </div>
         `;
       } else {
@@ -936,7 +863,6 @@
             <span>•</span>
             <span class="px-2 py-0.5 rounded-lg bg-indigo-500/15 text-indigo-300 font-semibold border border-indigo-500/20">${item.category}</span>
             ${item.recurrence && item.recurrence !== 'none' ? `<span class="px-2 py-0.5 rounded-lg bg-purple-500/15 text-purple-300 font-semibold border border-purple-500/20">🔄 ${item.recurrence}</span>` : ''}
-            ${item.postponeCount ? `<span class="text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded-lg border border-amber-500/20">Snoozed ${item.postponeCount}x</span>` : ''}
           `;
 
           info.appendChild(title);
@@ -964,11 +890,10 @@
         });
       }
 
-      // Render History Tab
       const histContainer = document.getElementById('history-container');
       histContainer.innerHTML = '';
       if (completed.length === 0) {
-        histContainer.innerHTML = '<div class="text-center py-8 text-slate-500 text-xs">ابھی کوئی مکمل شدہ ریمائنڈر نہیں ہے۔</div>';
+        histContainer.innerHTML = '<div class="text-center py-8 text-slate-500 text-xs">No completed reminders yet.</div>';
       } else {
         completed.forEach(item => {
           const div = document.createElement('div');
@@ -991,7 +916,7 @@
           const btnWrap = document.createElement('div');
           btnWrap.className = 'flex items-center gap-2 shrink-0';
           btnWrap.innerHTML = `
-            <button onclick="restoreReminder('${item.id}')" class="text-xs text-indigo-400 hover:underline">بحال کریں</button>
+            <button onclick="restoreReminder('${item.id}')" class="text-xs text-indigo-400 hover:underline">Restore</button>
             <button onclick="deleteReminder('${item.id}')" class="text-xs text-rose-400 p-1">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
@@ -1013,7 +938,6 @@
       });
     }
 
-    // 8. Actions & Search
     window.handleSearch = function(val) {
       currentSearch = val;
       renderApp();
@@ -1058,10 +982,7 @@
         return r;
       });
 
-      if (newlyCreated) {
-        reminders.unshift(newlyCreated);
-      }
-
+      if (newlyCreated) reminders.unshift(newlyCreated);
       saveAll();
       playChimeTone();
       renderApp();
@@ -1132,7 +1053,7 @@
     if (SpeechRec) {
       const recognition = new SpeechRec();
       recognition.continuous = false;
-      recognition.lang = 'ur-PK';
+      recognition.lang = 'en-US';
 
       recognition.onstart = () => voiceInd.classList.remove('hidden');
       recognition.onend = () => voiceInd.classList.add('hidden');
@@ -1150,15 +1071,14 @@
       });
       document.getElementById('btn-stop-voice').addEventListener('click', () => recognition.stop());
     } else {
-      voiceBtn.addEventListener('click', () => alert('مائیکروفون اس براؤزر میں دستیاب نہیں ہے۔ آپ ٹیکسٹ باکس میں لکھ سکتے ہیں۔'));
+      voiceBtn.addEventListener('click', () => alert('Speech recognition not supported in this browser.'));
     }
 
-    // Modal Add & Edit Features
     window.openAddModal = function() {
       const now = new Date();
       now.setMinutes(now.getMinutes() + 30);
       document.getElementById('form-reminder-id').value = '';
-      document.getElementById('modal-reminder-title').textContent = 'نیا ریمائنڈر بنائیں (New Reminder)';
+      document.getElementById('modal-reminder-title').textContent = 'New Reminder';
       document.getElementById('form-date').value = getLocalToday();
       document.getElementById('form-time').value = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
       document.getElementById('form-title').value = '';
@@ -1172,7 +1092,7 @@
       const item = reminders.find(r => r.id === id);
       if (!item) return;
       document.getElementById('form-reminder-id').value = item.id;
-      document.getElementById('modal-reminder-title').textContent = 'ریمائنڈر میں ترمیم کریں (Edit Reminder)';
+      document.getElementById('modal-reminder-title').textContent = 'Edit Reminder';
       document.getElementById('form-title').value = item.title;
       document.getElementById('form-date').value = item.date;
       document.getElementById('form-time').value = item.time;
@@ -1197,29 +1117,9 @@
       const recurrence = document.getElementById('form-recurrence').value;
 
       if (editId) {
-        reminders = reminders.map(r => r.id === editId ? {
-          ...r,
-          title,
-          date,
-          time,
-          category,
-          priority,
-          recurrence,
-          notified: false
-        } : r);
+        reminders = reminders.map(r => r.id === editId ? { ...r, title, date, time, category, priority, recurrence, notified: false } : r);
       } else {
-        const newItem = {
-          id: `rem-${Date.now()}`,
-          title,
-          date,
-          time,
-          category,
-          priority,
-          recurrence,
-          completed: false,
-          postponeCount: 0,
-          notified: false
-        };
+        const newItem = { id: `rem-${Date.now()}`, title, date, time, category, priority, recurrence, completed: false, postponeCount: 0, notified: false };
         reminders.unshift(newItem);
       }
 
@@ -1229,7 +1129,6 @@
       renderApp();
     };
 
-    // AI Assistant Chat Logic
     window.handleChatSubmit = function(e) {
       e.preventDefault();
       const input = document.getElementById('chat-input');
@@ -1250,53 +1149,26 @@
       chatBox.appendChild(userDiv);
       input.value = '';
 
-      const lower = text.toLowerCase();
-      const isGreeting = /^(hi|hello|hey|assalam|salam|kese ho|kaise ho|what's up|shukriya|thanks)\b/i.test(lower);
-      const isShowTasks = /show|list|pending|batao|kaam|tasks|schedule/i.test(lower) && !/remind|yaad/i.test(lower);
-
       setTimeout(() => {
+        const parsed = parseNL(text);
+        const newRem = { ...parsed, id: `rem-${Date.now()}` };
+        reminders.unshift(newRem);
+        saveAll();
+        renderApp();
+
         const aiDiv = document.createElement('div');
         aiDiv.className = 'flex items-start gap-2';
-
-        if (isGreeting) {
-          aiDiv.innerHTML = `
-            <div class="w-7 h-7 rounded-xl bg-gradient-to-tr from-purple-600 to-pink-500 text-white flex items-center justify-center text-xs shrink-0">
-              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
-            </div>
-            <div class="p-3 rounded-2xl glass-card text-slate-200 text-xs leading-relaxed max-w-[85%]">
-              وعلیکم السلام! میں یاد میٹ AI ہوں۔ آپ مجھ سے کوئی بھی سوال پوچھ سکتے ہیں یا ریمائنڈر شیڈول کرنے کو کہہ سکتے ہیں (مثلاً: "کل صبح 9 بجے میٹنگ")۔
-            </div>
-          `;
-        } else if (isShowTasks) {
-          const active = reminders.filter(r => !r.completed);
-          let listTxt = active.length === 0 ? 'آپ کے پاس اس وقت کوئی زیر التواء ریمائنڈر نہیں ہے۔' : active.slice(0, 4).map(r => `• ${r.title} (${r.date} at ${r.time})`).join('<br>');
-          aiDiv.innerHTML = `
-            <div class="w-7 h-7 rounded-xl bg-gradient-to-tr from-purple-600 to-pink-500 text-white flex items-center justify-center text-xs shrink-0">
-              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
-            </div>
-            <div class="p-3 rounded-2xl glass-card text-slate-200 text-xs leading-relaxed max-w-[85%]">
-              <strong>آپ کے فعال کام:</strong><br>${listTxt}
-            </div>
-          `;
-        } else {
-          const parsed = parseNL(text);
-          const newRem = { ...parsed, id: `rem-${Date.now()}` };
-          reminders.unshift(newRem);
-          saveAll();
-          renderApp();
-
-          aiDiv.innerHTML = `
-            <div class="w-7 h-7 rounded-xl bg-gradient-to-tr from-purple-600 to-pink-500 text-white flex items-center justify-center text-xs shrink-0">
-              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
-            </div>
-            <div class="p-3 rounded-2xl glass-card text-slate-200 text-xs leading-relaxed max-w-[85%]">
-              میں نے آپ کا ریمائنڈر محفوظ کر دیا ہے:
-              <br>📌 <strong>${newRem.title}</strong>
-              <br>⏰ <strong>${newRem.time}</strong> (${newRem.date})
-              <br>🏷️ زمرہ: <em>${newRem.category}</em>
-            </div>
-          `;
-        }
+        aiDiv.innerHTML = `
+          <div class="w-7 h-7 rounded-xl bg-gradient-to-tr from-purple-600 to-pink-500 text-white flex items-center justify-center text-xs shrink-0">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+          </div>
+          <div class="p-3 rounded-2xl glass-card text-slate-200 text-xs leading-relaxed max-w-[85%]">
+            Reminder scheduled successfully:
+            <br>📌 <strong>${newRem.title}</strong>
+            <br>⏰ <strong>${newRem.time}</strong> (${newRem.date})
+            <br>🏷️ Category: <em>${newRem.category}</em>
+          </div>
+        `;
         chatBox.appendChild(aiDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
         playChimeTone();
@@ -1304,13 +1176,13 @@
     };
 
     window.clearChat = function() {
-      document.getElementById('chat-messages').innerHTML = '<div class="text-center py-4 text-slate-500 text-xs">چیٹ ہسٹری صاف ہو گئی ہے۔</div>';
+      document.getElementById('chat-messages').innerHTML = '<div class="text-center py-4 text-slate-500 text-xs">Chat history cleared.</div>';
     };
 
     window.dispatchToWhatsApp = function() {
       const select = document.getElementById('wa-select-reminder');
       const item = reminders.find(r => r.id === select.value);
-      if (!item) return alert('پہلے ریمائنڈر منتخب کریں۔');
+      if (!item) return alert('Please select a reminder.');
       const phone = document.getElementById('wa-phone-number').value.replace(/[^0-9]/g, '');
       const text = buildWhatsAppText(item);
       const url = phone ? `https://wa.me/${phone}?text=${text}` : `https://wa.me/?text=${text}`;
@@ -1319,10 +1191,10 @@
 
     window.saveUserName = function() {
       const name = document.getElementById('input-username').value.trim();
-      userPrefs.userName = name || 'دوست';
+      userPrefs.userName = name || 'Friend';
       saveAll();
       renderApp();
-      alert('نام محفوظ ہو گیا ہے۔');
+      alert('Name saved successfully.');
     };
 
     window.toggleSetting = function(type) {
@@ -1339,9 +1211,9 @@
 
     window.testAlarm = function() {
       startRepeatingAlarm();
-      speakAnnouncement('یہ یاد میٹ کا ٹیسٹ الارم ہے۔ آپ کا آڈیو سسٹم فعال ہے۔', 'Yeh YaadMate ka test alarm hai. Audio theek hai.');
-      document.getElementById('alarm-item-title').textContent = 'ٹیسٹ الارم (Test Alarm)';
-      document.getElementById('alarm-item-time').textContent = 'صوتی الارم اور وائبریشن سسٹم بالکل درست کام کر رہا ہے';
+      speakAnnouncement('YaadMate test alarm active.');
+      document.getElementById('alarm-item-title').textContent = 'Test Alarm';
+      document.getElementById('alarm-item-time').textContent = 'Audio and vibration system functioning normally';
       document.getElementById('modal-alarm').classList.remove('hidden');
     };
 
@@ -1356,35 +1228,18 @@
     window.importData = function(e) {
       const file = e.target.files && e.target.files[0];
       if (!file) return;
-
       const reader = new FileReader();
       reader.onload = function(evt) {
         try {
           const parsed = JSON.parse(evt.target.result);
-          if (!Array.isArray(parsed)) {
-            alert('غلط فائل: بیک اپ میں ریمائنڈرز کی لسٹ موجود ہونی چاہیے۔');
-            return;
-          }
-
-          if (confirm(`کیا آپ واقعی ${parsed.length} ریمائنڈرز بحال کرنا چاہتے ہیں؟ موجودہ ریمائنڈرز تبدیل ہو جائیں گے۔`)) {
-            reminders = parsed.filter(item => item && typeof item.title === 'string').map((item, idx) => ({
-              id: item.id || `imported-${Date.now()}-${idx}`,
-              title: item.title,
-              description: item.description || '',
-              date: item.date || getLocalToday(),
-              time: item.time || '09:00',
-              category: item.category || 'Personal',
-              priority: item.priority || 'medium',
-              recurrence: item.recurrence || 'none',
-              completed: Boolean(item.completed),
-              postponeCount: item.postponeCount || 0
-            }));
+          if (Array.isArray(parsed)) {
+            reminders = parsed;
             saveAll();
             renderApp();
-            alert('بیک اپ کامیابی سے بحال ہو گیا ہے!');
+            alert('Backup restored successfully!');
           }
         } catch (err) {
-          alert('فائل پڑھنے میں غلطی پیش آئی۔ درست JSON فائل کا انتخاب کریں۔');
+          alert('Error reading file.');
         } finally {
           e.target.value = '';
         }
@@ -1393,7 +1248,7 @@
     };
 
     window.resetData = function() {
-      if (confirm('کیا آپ تمام ریمائنڈرز کو نمونہ ڈیٹا پر ری سیٹ کرنا چاہتے ہیں؟')) {
+      if (confirm('Reset to default sample data?')) {
         localStorage.removeItem(STORAGE_KEY);
         reminders = loadSavedReminders();
         saveAll();
@@ -1401,34 +1256,22 @@
       }
     };
 
-    // Client-side self HTML download
-    window.downloadSelfFile = function() {
-      const htmlContent = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
-      const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'yaadmate-ai.html';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      playChimeTone();
-    };
-
     document.getElementById('btn-top-test').addEventListener('click', testAlarm);
 
-    // Language Toggle
     const langBtn = document.getElementById('btn-top-lang');
-    const langs = ['Roman', 'اردو', 'English'];
+    const langs = ['Roman', 'Urdu', 'English'];
     let langIndex = 0;
     langBtn.addEventListener('click', () => {
       langIndex = (langIndex + 1) % langs.length;
       langBtn.textContent = langs[langIndex];
-      currentLang = langIndex === 1 ? 'ur' : (langIndex === 0 ? 'ur-roman' : 'en');
-      document.documentElement.setAttribute('dir', currentLang === 'ur' ? 'rtl' : 'ltr');
+      if (langIndex === 1) {
+        document.documentElement.setAttribute('dir', 'rtl');
+      } else {
+        document.documentElement.setAttribute('dir', 'ltr');
+      }
       renderApp();
     });
 
-    // 9. Live 5-Second Timer Loop & Browser Notifications
     setInterval(() => {
       const now = new Date();
       const nowTime = now.getTime();
@@ -1450,49 +1293,34 @@
     function triggerDueAlarm(item) {
       activeDueReminder = item;
       startRepeatingAlarm();
-
-      speakAnnouncement(
-        `یاد دہانی۔ آپ کے کام، ${item.title}، کا وقت ہو گیا ہے۔`,
-        `YaadMate reminder: Aapke task, ${item.title}, ka waqt ho gaya hai.`
-      );
+      speakAnnouncement(`Reminder: ${item.title} is due now.`);
 
       if ('Notification' in window && Notification.permission === 'granted') {
         try {
-          const n = new Notification(`🔔 YaadMate: ${item.title}`, {
-            body: `⏰ وقت: ${item.time} | 🏷️ زمرہ: ${item.category}`,
-            icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="%236366F1"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>',
-            tag: `yaadmate-${item.id}`,
+          new Notification(`🔔 YaadMate: ${item.title}`, {
+            body: `⏰ Time: ${item.time} | 🏷️ Category: ${item.category}`,
             requireInteraction: true
           });
-          n.onclick = function() {
-            window.focus();
-            this.close();
-          };
         } catch (e) {}
       }
 
       document.getElementById('alarm-item-title').textContent = item.title;
-      document.getElementById('alarm-item-time').textContent = `${item.time} (${item.date}) • زمرہ: ${item.category}`;
+      document.getElementById('alarm-item-time').textContent = `${item.time} (${item.date})`;
       document.getElementById('modal-alarm').classList.remove('hidden');
     }
 
     window.snoozeActiveAlarm = function(mins) {
       stopAlarmRinging();
       document.getElementById('modal-alarm').classList.add('hidden');
-      if (activeDueReminder) {
-        quickSnooze(activeDueReminder.id, mins);
-      }
+      if (activeDueReminder) quickSnooze(activeDueReminder.id, mins);
     };
 
     window.completeActiveAlarm = function() {
       stopAlarmRinging();
       document.getElementById('modal-alarm').classList.add('hidden');
-      if (activeDueReminder) {
-        toggleDone(activeDueReminder.id);
-      }
+      if (activeDueReminder) toggleDone(activeDueReminder.id);
     };
 
-    // Initial render & Permission request
     renderApp();
     requestBrowserNotificationPermission(false);
   </script>
